@@ -17,3 +17,8 @@ hf = HuggingFaceEmbeddings(
 )
 faiss_index = FAISS.from_documents(docs, hf)
 faiss_index.save_local("courses_docs")
+query = "What course related to product management"
+docs = faiss_index.similarity_search(query)
+
+for i in range(3):
+    print(docs[i].page_content)
