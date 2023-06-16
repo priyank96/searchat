@@ -1,19 +1,10 @@
-from data.Flan import Flan
 from data import store_manager
-from langchain.vectorstores import FAISS
-from langchain.embeddings import HuggingFaceEmbeddings
-
+from data.Flan import Flan
 from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory
 
 
 class ChatBot:
-    model_name = "sentence-transformers/all-mpnet-base-v2"
-    encode_kwargs = {'normalize_embeddings': False}
-    hf = HuggingFaceEmbeddings(
-        model_name=model_name,
-        encode_kwargs=encode_kwargs
-    )
     faiss_index = store_manager.get_store()
 
     memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
