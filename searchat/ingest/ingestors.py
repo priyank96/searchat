@@ -12,11 +12,11 @@ class WebIngestor:
     h.ignore_images = True
 
     @staticmethod
-    def _extract_webpage_text(url, chunk_size: int = 1000, separator: str = '\n'):
+    def _extract_webpage_text(url, chunk_size: int = 500, separator: str = '\n'):
         text_splitter = CharacterTextSplitter(chunk_size=chunk_size, separator=separator)
         html = requests.get(url).text
 
-        page_text = html2text.html2text(html)
+        page_text = WebIngestor.h.handle(html)
         return text_splitter.split_text(page_text)
 
     @staticmethod
