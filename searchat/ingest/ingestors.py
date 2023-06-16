@@ -7,12 +7,16 @@ from langchain.text_splitter import CharacterTextSplitter
 
 
 class WebIngestor:
+    h = html2text.HTML2Text()
+    h.ignore_links = True
+    h.ignore_images = True
 
     @staticmethod
     def _extract_webpage_text(url, chunk_size: int = 1000, separator: str = '\n'):
         text_splitter = CharacterTextSplitter(chunk_size=chunk_size, separator=separator)
         html = requests.get(url).text
-        page_text = html2text.HTML2Text(html)
+
+        page_text = html2text.html2text(html)
         return text_splitter.split_text(page_text)
 
     @staticmethod
