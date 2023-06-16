@@ -2,17 +2,11 @@ from typing import List
 
 import requests
 from bs4 import BeautifulSoup
-from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
+from data import store_manager
 
 
 class WebIngestor:
-    model_name = "sentence-transformers/all-mpnet-base-v2"
-    encode_kwargs = {'normalize_embeddings': False}
-    hf = HuggingFaceEmbeddings(
-        model_name=model_name,
-        encode_kwargs=encode_kwargs
-    )
 
     @staticmethod
     def _extract_webpage_text(url, chunk_size: int = 1500, separator: str = '\n'):
@@ -26,7 +20,7 @@ class WebIngestor:
 
     @staticmethod
     def _ingest_text(text: List[str]):
-        ...
+        store_manager.update_store(text)
 
     @staticmethod
     def ingest_webpage(url):
