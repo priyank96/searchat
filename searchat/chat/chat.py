@@ -1,5 +1,4 @@
-from data import store_manager
-from data import Flan, BASIC_DOCUMENT_QA_PROMPT
+from data import Flan, store_manager, BASIC_DOCUMENT_QA_PROMPT
 from langchain.chains import RetrievalQA
 
 
