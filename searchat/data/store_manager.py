@@ -15,6 +15,10 @@ else:
     faiss_index = FAISS.load_local('faiss', hf)
 
 
+def save_store():
+    ...
+
+
 def get_store():
     return faiss_index
 

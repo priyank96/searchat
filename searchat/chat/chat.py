@@ -1,14 +1,13 @@
 from data import store_manager
 from data.Flan import Flan
-from langchain.chains import ConversationalRetrievalChain
+from langchain.chains import RetrievalQA
 from langchain.memory import ConversationBufferMemory
 
 
 class ChatBot:
     faiss_index = store_manager.get_store()
 
-    memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-    qa = ConversationalRetrievalChain.from_llm(Flan(), faiss_index.as_retriever(), memory=memory)
+    qa = RetrievalQA.from_llm(Flan(), faiss_index.as_retriever())
 
     @staticmethod
     def chat(query):

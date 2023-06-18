@@ -9,8 +9,8 @@ from langchain.llms.base import LLM
 
 
 class Flan(LLM):
-    tokenizer_name: str = "google/flan-t5-base"
-    model_name: str = "google/flan-t5-base"
+    tokenizer_name: str = "google/flan-t5-large"
+    model_name: str = "google/flan-t5-large"
     load_in_8bit: bool = True
     device_map: str = "auto"
 

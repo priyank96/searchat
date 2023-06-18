@@ -11,3 +11,5 @@ transformers==4.29.2
 sentence_transformers
 faiss-cpu
 accelerate
+html2text
+bitsandbytes
