@@ -1,7 +1,6 @@
 from data import store_manager
-from data.Flan import Flan
+from data import Flan, BASIC_DOCUMENT_QA_PROMPT
 from langchain.chains import RetrievalQA
-from langchain.memory import ConversationBufferMemory
 
 
 class ChatBot:
@@ -9,7 +8,7 @@ class ChatBot:
     llm = Flan()
     qa = RetrievalQA.from_llm(llm,
                               faiss_index.as_retriever(k=3),
-                              prompt="Answer based on context:\n\n{context}\n{question}",
+                              prompt=BASIC_DOCUMENT_QA_PROMPT
                               )
 
     @staticmethod
