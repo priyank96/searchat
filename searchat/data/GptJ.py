@@ -9,7 +9,7 @@ from pydantic import Extra, root_validator
 from transformers import GPTJForCausalLM, AutoTokenizer
 
 
-class Llama(LLM):
+class GPTJ(LLM):
     tokenizer_name: str = 'EleutherAI/gpt-j-6B'
     model_name: str = 'EleutherAI/gpt-j-6B'
     device_map: str = "auto"
