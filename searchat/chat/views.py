@@ -9,4 +9,5 @@ class ChatBotView(APIView):
         request_params = request.GET
         q = request_params['q']
         result = ChatBot.chat(q)
+        result = q + '<br><br>' + result
         return HttpResponse(result)
