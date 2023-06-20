@@ -2,7 +2,7 @@ from functools import partial
 from pydantic import Extra, Field, root_validator
 from typing import Any, Dict, List, Mapping, Optional, Set
 
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import pipeline
 
 from langchain.callbacks.manager import CallbackManagerForLLMRun
 from langchain.llms.base import LLM
@@ -37,12 +37,11 @@ class AutoLM(LLM):
 
     @root_validator()
     def validate_environment(cls, values: Dict) -> Dict:
-        values["tokenizer"] = AutoTokenizer.from_pretrained(values["tokenizer_name"])
-        values["model"] = AutoModelForCausalLM.from_pretrained(
-            values["model_name"],
+        values["model"] = pipeline(
+            model=values["model_name"],
+            trust_remote_code=True,
             device_map=values["device_map"],
-            load_in_8bit=values["load_in_8bit"]
-        )
+            load_in_8bit=values["load_in_8bit"])
 
         return values
 
@@ -72,9 +71,7 @@ class AutoLM(LLM):
         if run_manager:
             text_callback = partial(run_manager.on_llm_new_token, verbose=self.verbose)
 
-        input_ids = self.tokenizer(prompt, return_tensors="pt").input_ids.to("cuda")
-        outputs = self.model.generate(input_ids, max_new_tokens=140)
-        text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+        text = self.model(prompt)[0]["generated_text"]
         if text_callback:
             text_callback(text)
         return text
