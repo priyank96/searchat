@@ -9,8 +9,8 @@ from langchain.llms.base import LLM
 
 
 class AutoLM(LLM):
-    tokenizer_name: str = "AutoLM"
-    model_name: str = "AutoLM"
+    tokenizer_name: str = "databricks/dolly-v2-3b"
+    model_name: str = "databricks/dolly-v2-3b"
     load_in_8bit: bool = True
     device_map: str = "auto"
 

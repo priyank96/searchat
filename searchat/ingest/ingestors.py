@@ -20,12 +20,14 @@ class WebIngestor:
         return text_splitter.split_text(page_text)
 
     @staticmethod
-    def _ingest_text(text: List[str]):
-        store_manager.update_store(text)
+    def _ingest_text(text: List[str], sources: List[str]):
+        store_manager.update_store(text, sources)
 
     @staticmethod
     def ingest_webpage(url):
         text = WebIngestor._extract_webpage_text(url)
-        sources = [url]*len(text)
+        sources = [0]*len(text)
+        for i in range(len(text)):
+            sources[i] = {'url': url}
         WebIngestor._ingest_text(text, sources)
         return '<br>'.join(text)

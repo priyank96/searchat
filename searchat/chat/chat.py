@@ -17,4 +17,5 @@ class ChatBot:
     @staticmethod
     def chat(query):
         response = ChatBot.qa({"query": query})
-        return response["result"], response["sources"]
+        return response["result"].replace('\n', '<br>'), '<br>'.join(
+            [x.page_content for x in response["source_documents"]])
