@@ -2,7 +2,7 @@ from functools import partial
 from pydantic import Extra, Field, root_validator
 from typing import Any, Dict, List, Mapping, Optional, Set
 
-from transformers import pipeline
+from transformers import pipeline, AutoModelForCausalLM
 
 from langchain.callbacks.manager import CallbackManagerForLLMRun
 from langchain.llms.base import LLM
@@ -37,12 +37,15 @@ class AutoLM(LLM):
 
     @root_validator()
     def validate_environment(cls, values: Dict) -> Dict:
-        values["model"] = pipeline(
-            model=values["model_name"],
-            trust_remote_code=True,
+        model = AutoModelForCausalLM.from_pretrained(
+            values["model_name"],
             device_map=values["device_map"],
-            load_in_8bit=values["load_in_8bit"])
-
+            load_in_8bit=values["load_in_8bit"]
+        )
+        values["model"] = pipeline(
+            model=model,
+            trust_remote_code=True,
+        )
         return values
 
     @property
