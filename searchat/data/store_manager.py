@@ -23,5 +23,5 @@ def get_store():
     return faiss_index
 
 
-def update_store(texts):
-    faiss_index.add_texts(texts)
+def update_store(texts, sources):
+    faiss_index.add_texts(texts=texts, metadatas=sources)

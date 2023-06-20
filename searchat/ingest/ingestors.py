@@ -26,5 +26,6 @@ class WebIngestor:
     @staticmethod
     def ingest_webpage(url):
         text = WebIngestor._extract_webpage_text(url)
-        WebIngestor._ingest_text(text)
-        return text
+        sources = [url]*len(text)
+        WebIngestor._ingest_text(text, sources)
+        return '<br>'.join(text)

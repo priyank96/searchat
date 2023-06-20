@@ -9,8 +9,8 @@ from langchain.llms.base import LLM
 
 
 class AutoLM(LLM):
-    tokenizer_name: str = "RWKV/rwkv-raven-14b"
-    model_name: str = "RWKV/rwkv-raven-14b"
+    tokenizer_name: str = "AutoLM"
+    model_name: str = "AutoLM"
     load_in_8bit: bool = True
     device_map: str = "auto"
 
